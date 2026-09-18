@@ -1,23 +1,23 @@
 name: 'Generate Dilithium Signatures'
-description: Generates a signatures file from a list of glob patterns
+description: Generates a signatures file from a list of glob patterns using Dilithium post-quantum signatures
 inputs:
   hexseed:
-    description: Hexseed to use
+    description: Dilithium hexseed to use for signing
     required: true
   output:
-    description: Output file path
+    description: Output file path for signatures
     required: false
     default: signatures.txt
   patterns:
-    description: List of glob patterns to use for matching files
+    description: List of glob patterns to use for matching files to sign
     required: true
 runs:
   using: docker
-  image: docker://ghcr.io/theqrl/actions-dilithium-sign:v1.0.0
+  image: docker://ghcr.io/theqrl/actions-dilithium-sign:v2.0.0
   args:
     - ${{ inputs.hexseed }}
     - ${{ inputs.output }}
     - ${{ inputs.patterns }}
 branding:
-  icon: align-center
-  color: green
+  icon: edit-3
+  color: purple

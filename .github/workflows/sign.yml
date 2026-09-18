@@ -1,22 +1,25 @@
+name: Generate Dilithium Signatures
+
 on: workflow_dispatch
 
-name: Generate Dilithium Signatures
+permissions:
+  contents: read
 
 jobs:
   test:
-    name: Generate Checksum
+    name: Generate Signatures
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
-      - name: Generate checksum
-        uses: theqrl/actions-dilithium-sign@v1
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - name: Generate signatures
+        uses: theqrl/actions-dilithium-sign@v2
         with:
           patterns: |
             *.*
           hexseed: ${{ secrets.DILITHIUM_HEXSEED }}
       - name: Upload signature file as artifact
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: result
+          name: signatures
           path: signatures.txt

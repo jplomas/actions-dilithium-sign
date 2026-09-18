@@ -1,0 +1,23 @@
+name: Test
+
+on:
+  push:
+    paths-ignore: ['**.md']
+  pull_request:
+    paths-ignore: ['**.md']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+      # Builds the qrlft commit the Dockerfile pins, so a pin that no longer
+      # matches this action's entrypoint fails here rather than in a release.
+      - run: ./test/run.sh
